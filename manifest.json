@@ -2,7 +2,7 @@
   "name": "Procrast 2.0",
   "version": "1.0.0",
   "description": "Recreating team Project using Rails",
-  "permissions": ["storage", "tabs"],
+  "permissions": ["storage", "tabs", "activeTab", "<all_urls>"],
   "manifest_version": 3,
   "author": "Gilead Bempah",
   "action": {
@@ -14,5 +14,15 @@
   },
   "background": {
     "service_worker": "background.js"
-  }
+  },
+  "icons": {
+    "128": "logo1-hat.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["style.css"],
+      "js": ["script.js"]
+    }
+  ]
 }
