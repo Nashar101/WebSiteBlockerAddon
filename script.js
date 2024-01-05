@@ -31,11 +31,28 @@ const generateHTML = pageName => {
         '</html>'
     );
 };
-
+let blockedSites = []
+boot()
 async function fetchData(){
 
 }
 
+function boot(){
+    chrome.storage.local.get({blockedList: []}, function (result) {
+        if (result.blockedList === null) {
+            result.blockedList = []
+        }
+        const array = result.blockedList;
+        console.log("this is array length " + array.length)
+        console.log(array[0][0])
+        block(array)
+        //console.log("this is array length " + array.length)
+        //blockedSites = array
+
+    })
+    console.log("hola")
+    console.log("this is length " + blockedSites.length)
+}
 function sayHI(){
     console.log("hi")
 }
@@ -43,5 +60,22 @@ function sayHI(){
     console.log("hi")
 });*/
 
-alert("this is a test")
-document.body.innerHTML = generateHTML('site is blocked')
+function block(array) {
+    console.log("let test this shit")
+    console.log(array[0][0])
+    console.log(window.location.hostname)
+    console.log(window.location.href)
+    for (let i = 0; i < array.length; i++) {
+
+        console.log(i + ', ' + array[i][0])
+        if (window.location.hostname == array[i][0] + '/' || window.location.href == array[i][0] + '/') {
+            document.body.innerHTML = generateHTML('site is blocked');
+            const displaySite = document.getElementById('site');
+            displaySite.textContent = blockedsites[i].toString();
+            blockedSite = blockedsites[i].toString();
+            break;
+        }
+    }
+}
+//alert("this is a test")
+//document.body.innerHTML = generateHTML('site is blocked')
